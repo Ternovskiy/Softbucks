@@ -1,0 +1,82 @@
+﻿@model IEnumerable<DataModul.Merchandises>
+
+<script>
+    function ShowMerchDetals(i) {
+        $('#detalsMerch').load('@Url.Action("DetalsMerchandise")', { idMerch: i });
+    }
+</script>
+
+@foreach (var item in Model)
+        {
+            <div class="navbar navbar-default" onclick="ShowMerchDetals(@item.Id)">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3 style="margin: 10px;"><small>@item.Name</small></h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="pull-right" style="margin: 10px;"><small>@item.Prise.ToString("C")</small></h3>
+                    </div>
+                </div>
+                
+            </div>
+        }
+  
+
+
+@{
+    int pNumber = ViewBag.pageNumber - 1;
+    int nNumber = ViewBag.pageNumber + 1;
+}
+
+@if (ViewBag.pageCount > ViewBag.pageSize)
+{
+
+    <div class="text-center">
+
+        <ul class="pagination">
+            @if (pNumber < 1)
+            {
+                <li class="disabled">
+                    <a>
+                        &laquo;
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a onclick="ClickPagePrice(@pNumber)">&laquo;</a>
+                </li>
+            }
+
+
+
+
+            @for (int i = 1; (i - 1) * ViewBag.pageSize <= ViewBag.pageCount; i++)
+            {
+                <li @if (ViewBag.pageNumber == i) {  @: class="active"
+                                                                        }><a onclick="ClickPagePrice(@i)">@i</a></li>
+            }
+
+            @if ((nNumber - 1) * ViewBag.pageSize > ViewBag.pageCount)
+            {
+                <li class="disabled">
+                    <a>
+                        &raquo;
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a onclick="ClickPagePrice(@nNumber)">&raquo;</a>
+                </li>
+            }
+
+        </ul>
+
+
+
+    </div>
+
+}

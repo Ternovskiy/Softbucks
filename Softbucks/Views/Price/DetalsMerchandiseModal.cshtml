@@ -1,0 +1,73 @@
+﻿@model DataModul.Merchandises
+<script>
+    $(function() {
+        $("#star1").rating({
+            'min': 0, 'max': 5, 'step': 1, 'size': 'sm',
+            readonly: true,
+            defaultCaption:"Нет рейтинга",
+            showClear: false,
+            clearCaption:"Нет рейтинга",
+            starCaptions: {  1: "Одна звезда", 2: "Две звезды", 3: "Три звезды", 4: "Четыре звезды", 5: "Пять звезд" }
+        }
+            );
+
+        $("#detalsMerchComents").load('@Url.Action("GetComments","Rating")', {idMerch:@Model.Id});
+    });
+</script>
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Подробно</h4>
+    </div>
+    <div class="modal-body">
+        
+
+
+
+        <h3 class="text-center"><strong> @Model.Name </strong></h3>
+
+        <div class="row">
+            <img class="img-rounded" src="@ViewBag.img" align="left" style="margin-right: 50px" />
+            <input id="star1" value="@Model.Rating" align="left" style="margin-right: 50px">
+
+            <h4>@Html.DisplayNameFor(m => Model.Prise): @Model.Prise.ToString("C")</h4>
+            <h5>Заказов: @Model.CountOrderes</h5>
+
+            <h5>Состав: @Model.Сomposition</h5>
+            
+        </div>
+
+        <h5>Описание: @Model.Description</h5>
+
+
+        <div class="panel-group" id="accordion2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title" align="center">
+                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2">Коментарии</a>
+                    </h4>
+                </div>
+                <div id="collapseOne2" class="panel-collapse collapse">
+                    <div class="panel-body">
+
+                        <div id="detalsMerchComents"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        @if (User.Identity.IsAuthenticated) {
+        <button class="btn btn-success" onclick="AddMerchandiseForOrder(@Model.Id)">Добавить к заказу</button>
+        }else
+        {
+        @:Для заказа кофе нужно авторизоваться 
+        }
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+    </div>
+</div>
+

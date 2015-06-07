@@ -1,0 +1,75 @@
+﻿<script>
+    function AddMerchandiseForOrder(i) {
+        $('#loadOrder').load('@Url.Action("AddViewMerchandiseForOrder")', { merchandiseId: i },
+            function () {
+                $('#orderMini').load('@Url.Action("OrderMini")');
+        })
+    }
+</script>
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title" align="center">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Ваш заказ</a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+
+                @Html.Partial("MyOrderAccordion")
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <h4 class="panel-title" align="center">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Существующие вариации</a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+            
+                @{
+                    Html.RenderAction("Main", controllerName: "Price");
+                }
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title" align="center">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Сделай свой кофе</a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+
+                @Html.Partial("MyCofeAccordion")
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title text-center">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Уже заказывал</a>
+            </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id="loadOrderedUser">
+                    
+                    @{
+                        Html.RenderAction("GetOrdered", "Rating");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

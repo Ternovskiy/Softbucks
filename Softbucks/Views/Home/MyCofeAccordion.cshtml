@@ -1,0 +1,90 @@
+﻿<script type="text/javascript">
+    function LoadMerchandise(i) {
+        $('#myCoffeLoad').load('@Url.Action("ViewMyMerchandise")', { 'productId': i });
+    }
+
+    function MerchandiseKick(i) {
+        $('#myCoffeLoad').load('@Url.Action("MyMerchandiseKick")', { 'productId': i });
+    }
+
+    function MerchandiseKickAll() {
+        $('#myCoffeLoad').load('@Url.Action("MyMerchandiseKickAll")');
+    }
+
+    function LoadProduct() {
+        var name = $('#search').val();
+        name = name.replace(new RegExp(" ", 'g'), "%20");
+        var tp = $('#typePr').val();
+        var pp = $("#PrPage").val();
+        @*$('#resultsPrSearch').load('@Url.Action("ProductSearch", new {name="__name__")'.replace('__name__', name));*@
+        $('#resultsPrSearch').load('@Url.Action("ProductSearch")', { 'name': name, 'typeProduct': tp, prPage: pp });
+    }
+
+
+    $(document).ready(function () {
+
+        LoadProduct();
+        LoadMerchandise();
+        $('#searchProduct').click(LoadProduct);
+
+        $('#typePr').change(LoadProduct);
+
+        $('#PrPage').change(LoadProduct);
+
+
+    });
+
+</script>
+
+<div class="container-fluid">
+    <h2 class="text-center"><small>Выбери состав своего кофе</small></h2>
+    
+    <div class="row col-lg-offset-4">
+        
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input id="search" type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button id="searchProduct" class="btn btn-default" type="button">   Найти   </button>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            @Html.DropDownList(name: "tp", selectList: ViewBag.DropTypeProduct as List<SelectListItem>, htmlAttributes: new { @class = "form-control", id = "typePr" })
+        </div>
+
+        @{
+            var sl = new List<SelectListItem>()
+            {
+                new SelectListItem(){Selected = true,Text = "по 10",Value = "10"},
+                new SelectListItem(){Text = "по 5",Value = "5"},
+                new SelectListItem(){Text = "по 3",Value = "3"}
+            };
+        }
+        <div class="col-md-2">
+            @Html.DropDownList(name: "pp", selectList: sl, htmlAttributes: new { @class = "form-control", id = "PrPage" })
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-4 bg-warning">
+            
+            <br />
+            <input type="text" class="form-control" id="nameMyCoffe" placeholder="Имя моей вариации кофе"/>
+            <br/>
+            <div id="myCoffeLoad">
+
+            </div>
+
+        </div>
+
+        <div class="col-md-8">
+            <br/>
+            <div id="resultsPrSearch"></div>
+
+        </div>
+    </div>
+</div>

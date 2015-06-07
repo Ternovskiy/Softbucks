@@ -1,0 +1,85 @@
+﻿@using DataModul
+@model IEnumerable<DataModul.Products>
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        @foreach (Products item in Model)
+        {
+            Html.RenderPartial("ProductSummary", item);
+        }
+    </div>
+</div>
+
+<script>
+    function ClickPage(i) {
+        var name = $('#search').val();
+        name = name.replace(new RegExp(" ", 'g'), "%20");
+        var tp = $('#typePr').val();
+        var pp = $("#PrPage").val();
+      $('#resultsPrSearch').load('@Url.Action("ProductSearch")', { 'name': name, 'typeProduct': tp, prPage: pp,page:i });
+
+    }
+</script>
+
+
+
+@{
+    int pNumber = ViewBag.pageNumber-1;
+    int nNumber = ViewBag.pageNumber + 1;
+}
+
+@if (ViewBag.pageCount > ViewBag.pageSize)
+{ 
+
+<div class="text-center">
+
+    <ul class="pagination">
+        @if (pNumber < 1)
+        {
+            <li class="disabled">
+                <a>
+                    &laquo; 
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a onclick ="ClickPage(@pNumber)">&laquo;</a>
+            </li>
+        }
+        
+    
+
+
+         @for (int i = 1; (i - 1) * ViewBag.pageSize <= ViewBag.pageCount; i++)
+        {
+            <li 
+                @if (ViewBag.pageNumber == i) { 
+                    @: class="active"
+                                }
+                                ><a onclick="ClickPage(@i)">@i</a></li>
+        }
+        
+        @if ((nNumber - 1) * ViewBag.pageSize > ViewBag.pageCount)
+        {
+            <li class="disabled">
+                <a>
+                    &raquo;
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a onclick="ClickPage(@nNumber)">&raquo;</a>
+            </li>
+        }
+
+        </ul>
+
+
+
+</div>
+
+}

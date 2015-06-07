@@ -1,0 +1,8 @@
+﻿@if (ViewBag.OrderCount!=0)
+{
+    <a style="padding-bottom: 10px; padding-top: 10px;">
+        @ViewBag.OrderCount кофе за  @ViewBag.OrderPrice.ToString("c") 
+        @*<span class="btn btn-success">Заказать</span>*@
+        <button class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="buyOrder()">Заказать</button>
+    </a>
+}

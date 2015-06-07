@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="aspnet-Softbucks-20140302121355" Class="DataClassesSoftbucksDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=D:\Cloud@Mail.Ru\Softbucks\Softbucks\App_Data\aspnet-Softbucks-20140302121355.mdf;Initial Catalog=aspnet-Softbucks-20140302121355;Integrated Security=True" SettingsObjectName="DataModul.Properties.Settings" SettingsPropertyName="aspnet_Softbucks_20140302121355ConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AspNetUsers" Member="AspNetUsers">
+    <Type Name="AspNetUsers">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SecurityStamp" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Discriminator" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="AspNetUsers_Ratings" Member="Ratings" ThisKey="Id" OtherKey="UserId" Type="Ratings" />
+      <Association Name="AspNetUsers_Merchandises" Member="Merchandises" ThisKey="Id" OtherKey="UserId" Type="Merchandises" />
+      <Association Name="AspNetUsers_Orders" Member="Orders" ThisKey="Id" OtherKey="UserId" Type="Orders" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UnitsProducts" Member="UnitsProducts">
+    <Type Name="UnitsProducts">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="ShortName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="UnitsProducts_Products" Member="Products" ThisKey="Id" OtherKey="UnitsId" Type="Products" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MerchandiseStates" Member="MerchandiseStates">
+    <Type Name="MerchandiseStates">
+      <Column Name="MerchandiseId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StateId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="States_MerchandiseStates" Member="States" ThisKey="StateId" OtherKey="Id" Type="States" IsForeignKey="true" />
+      <Association Name="Merchandises_MerchandiseStates" Member="Merchandises" ThisKey="MerchandiseId" OtherKey="Id" Type="Merchandises" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrdersStates" Member="OrdersStates">
+    <Type Name="OrdersStates">
+      <Column Name="OrderId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StateId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="States_OrdersStates" Member="States" ThisKey="StateId" OtherKey="Id" Type="States" IsForeignKey="true" />
+      <Association Name="Orders_OrdersStates" Member="Orders" ThisKey="OrderId" OtherKey="Id" Type="Orders" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Products">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TypeProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitsId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Products_ProductStates" Member="ProductStates" ThisKey="Id" OtherKey="ProductId" Type="ProductStates" />
+      <Association Name="Products_MerchandiseProducts" Member="MerchandiseProducts" ThisKey="Id" OtherKey="ProductId" Type="MerchandiseProducts" />
+      <Association Name="UnitsProducts_Products" Member="UnitsProducts" ThisKey="UnitsId" OtherKey="Id" Type="UnitsProducts" IsForeignKey="true" />
+      <Association Name="TypeProducts_Products" Member="TypeProducts" ThisKey="TypeProductId" OtherKey="Id" Type="TypeProducts" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProductStates" Member="ProductStates">
+    <Type Name="ProductStates">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StateId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Products_ProductStates" Member="Products" ThisKey="ProductId" OtherKey="Id" Type="Products" IsForeignKey="true" />
+      <Association Name="States_ProductStates" Member="States" ThisKey="StateId" OtherKey="Id" Type="States" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Ratings" Member="Ratings">
+    <Type Name="Ratings">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Value" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(1028)" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="MerchandiseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Ratings_RatingStates" Member="RatingStates" ThisKey="Id" OtherKey="RatingId" Type="RatingStates" />
+      <Association Name="AspNetUsers_Ratings" Member="AspNetUsers" ThisKey="UserId" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" />
+      <Association Name="Merchandises_Ratings" Member="Merchandises" ThisKey="MerchandiseId" OtherKey="Id" Type="Merchandises" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RatingStates" Member="RatingStates">
+    <Type Name="RatingStates">
+      <Column Name="RatingId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StateId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Ratings_RatingStates" Member="Ratings" ThisKey="RatingId" OtherKey="Id" Type="Ratings" IsForeignKey="true" />
+      <Association Name="States_RatingStates" Member="States" ThisKey="StateId" OtherKey="Id" Type="States" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.States" Member="States">
+    <Type Name="States">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="States_MerchandiseStates" Member="MerchandiseStates" ThisKey="Id" OtherKey="StateId" Type="MerchandiseStates" />
+      <Association Name="States_OrdersStates" Member="OrdersStates" ThisKey="Id" OtherKey="StateId" Type="OrdersStates" />
+      <Association Name="States_ProductStates" Member="ProductStates" ThisKey="Id" OtherKey="StateId" Type="ProductStates" />
+      <Association Name="States_RatingStates" Member="RatingStates" ThisKey="Id" OtherKey="StateId" Type="RatingStates" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TypeProducts" Member="TypeProducts">
+    <Type Name="TypeProducts">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Association Name="TypeProducts_Products" Member="Products" ThisKey="Id" OtherKey="TypeProductId" Type="Products" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MerchandiseProducts" Member="MerchandiseProducts">
+    <Type Name="MerchandiseProducts">
+      <Column Name="MerchandiseId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CountProduct" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Products_MerchandiseProducts" Member="Products" ThisKey="ProductId" OtherKey="Id" Type="Products" IsForeignKey="true" />
+      <Association Name="Merchandises_MerchandiseProducts" Member="Merchandises" ThisKey="MerchandiseId" OtherKey="Id" Type="Merchandises" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Merchandises" Member="Merchandises">
+    <Type Name="Merchandises">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2048)" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Association Name="Merchandises_MerchandiseStates" Member="MerchandiseStates" ThisKey="Id" OtherKey="MerchandiseId" Type="MerchandiseStates" />
+      <Association Name="Merchandises_Ratings" Member="Ratings" ThisKey="Id" OtherKey="MerchandiseId" Type="Ratings" />
+      <Association Name="Merchandises_MerchandiseProducts" Member="MerchandiseProducts" ThisKey="Id" OtherKey="MerchandiseId" Type="MerchandiseProducts" />
+      <Association Name="Merchandises_Orders" Member="Orders" ThisKey="Id" OtherKey="MerchandaseId" Type="Orders" />
+      <Association Name="AspNetUsers_Merchandises" Member="AspNetUsers" ThisKey="UserId" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Orders">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="MerchandaseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Orders_OrdersStates" Member="OrdersStates" ThisKey="Id" OtherKey="OrderId" Type="OrdersStates" />
+      <Association Name="AspNetUsers_Orders" Member="AspNetUsers" ThisKey="UserId" OtherKey="Id" Type="AspNetUsers" IsForeignKey="true" />
+      <Association Name="Merchandises_Orders" Member="Merchandises" ThisKey="MerchandaseId" OtherKey="Id" Type="Merchandises" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

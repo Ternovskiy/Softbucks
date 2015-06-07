@@ -1,0 +1,26 @@
+﻿@model IEnumerable<DataModul.Ratings>
+<script>
+    $(function () {
+        $(".starscomments").rating({
+            'min': 0, 'max': 5, 'step': 1, 'size': 'xs',
+            readonly: true,
+            defaultCaption: "Нет рейтинга",
+            showClear: false,
+            clearCaption: "Нет рейтинга",
+            starCaptions: { 1: "Одна звезда", 2: "Две звезды", 3: "Три звезды", 4: "Четыре звезды", 5: "Пять звезд" }
+        }
+            );
+
+    });
+</script>
+<div >
+
+    @foreach (var item in Model)
+    {
+        <h1>@item.AspNetUsers.UserName</h1>
+        <input class="starscomments" value="@item.Value"/>
+        <p>@item.Comment</p>
+        <hr/>
+    
+    }
+</div>

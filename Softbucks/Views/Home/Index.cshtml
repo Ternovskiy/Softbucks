@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Softbucks";
+    
+}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 
+    
+    <div id="myModalLoad" class="modal-dialog">
+
+    </div>
+</div>
+
+<div class="jumbotron">
+    
+    @*@Html.Partial("HeadMain")*@
+    @{
+        Html.RenderAction("HeadMain");
+    }
+
+</div>
+
+@if(User.Identity.IsAuthenticated)
+{ 
+<script>
+    $(document).ready(function () {
+
+        $('#orderMini').load('@Url.Action("OrderMini")');
+
+    });
+</script>
+@Html.Partial("AccordionMenu")
+}
+else
+{
+    <div class="warning">
+        <h4>Для работы на сайте нужно авторизоваться</h4>
+    </div>
+}
+
+

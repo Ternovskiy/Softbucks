@@ -1,0 +1,66 @@
+﻿@model IEnumerable<DataModul.Orders>
+    
+@{
+    int s = 0;
+    int c = 0;
+}
+
+@if (Model.Any())
+{
+
+    
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Merchandises.Name)  
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Merchandises.Prise)
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
+    
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td><a onclick="ViewDetelsMerchModal(@item.MerchandaseId)" data-toggle="modal" data-target="#myModal">
+    @item.Merchandises.Name
+</a>
+                </td>
+                <td>
+                    @item.Count x @item.Merchandises.Prise.ToString("c") = @((item.Count*item.Merchandises.Prise).ToString("C"))
+               
+                </td>
+                <td>
+                    <button class="btn btn-default" onclick="addMerchOrder(@item.Id)">Добавить</button>
+                    <button class="btn btn-default" onclick="kickMerchOrder(@item.Id)">@if (item.Count == 1)
+                                                                                         {
+                                                                                             @:Удалить
+                                                                                         }
+                                                                                         else
+                                                                                         {
+                                                                                             @:Убрать
+                                                                                         }</button>
+                </td>
+            </tr>
+
+            {
+                s += item.Count*item.Merchandises.Prise;
+                c += item.Count;
+            }
+        }
+    </table>
+    <br/>
+    <div class="text-right">
+        <h3>@c кофе за @s.ToString("c")</h3>
+        <button class="btn btn-success" data-toggle="modal" data-target="#myModal" onclick="buyOrder()">Заказать</button> 
+    </div>
+
+}
+else
+{
+    <h3>Вы еще не выбрали кофе! Скорее добавляй и заказывай</h3>
+}

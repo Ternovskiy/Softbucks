@@ -1,0 +1,61 @@
+﻿
+<script>
+    function ClickPagePrice(i) {
+        var name = $('#searchPriceText').val();
+        name = name.replace(new RegExp(" ", 'g'), "%20");
+        var pp = $("#countPagePrice").val();
+        $('#searchPrice').load('@Url.Action("SearchPrice")', { name: name,  pageSize: pp, page: i });   
+    }
+
+
+    $(document).ready(function () {
+        ClickPagePrice(1);
+        $("#countPagePrice").change(function() {
+                ClickPagePrice(1);
+            }
+       );
+    });
+</script>
+
+
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="input-group">
+                    <input id="searchPriceText" type="text" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" onclick="ClickPagePrice(1)">   Найти   </button>
+                    </span>
+                </div>
+            </div>
+
+            @{
+                var sl = new List<SelectListItem>()
+                {
+                    new SelectListItem(){Selected = true,Text = "по 10",Value = "10"},
+                    new SelectListItem(){Text = "по 5",Value = "5"},
+                    new SelectListItem(){Text = "по 3",Value = "3"}
+                };
+            }
+            <div class="col-md-3">
+                @Html.DropDownList(name: "pp", selectList: sl, htmlAttributes: new { @class = "form-control", id = "countPagePrice" })
+            </div>
+
+        </div>
+        <br/>
+        <div id="searchPrice">
+            
+        </div>
+    </div>
+        
+
+    <div id="detalsMerch" class="col-md-7">
+        
+        
+
+    </div>
+</div>
+
+

@@ -1,0 +1,43 @@
+﻿@model DataModul.Ratings
+<script>
+    $(function () {
+        $("#setRatingComents").load('@Url.Action("GetComments")', {idMerch:@Model.MerchandiseId});
+
+        $("#starforset").rating({
+            'min': 0, 'max': 5, 'step': 1,
+            starCaptions: { 1: "Одна звезда", 2: "Две звезды", 3: "Три звезды", 4: "Четыре звезды", 5: "Пять звезд" },
+            clearButtonTitle: "Сбросить",
+            clearCaption:"Нет рейтинга"
+        });
+
+    });
+
+    function SetRatingSendparametrs() {
+        var v=$('#starforset').val();
+        var c = $('#commenttext').val();
+        $("#setRatingComents").load('@Url.Action("SetRatingValue")', { idMerch: '@Model.MerchandiseId', value: v, comment: c });
+    }
+</script>
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Оценка @Model.Merchandises.Name</h4>
+    </div>
+    <div class="modal-body">
+        <div id="setRatingComents">
+            
+        </div>
+        <hr/>
+        @Html.LabelFor(m=>Model.Comment,htmlAttributes: new { @class = "control-label"})
+
+        @Html.EditorFor(m => m.Comment, new { htmlAttributes = new { @class = "form-control", id="commenttext"} })
+
+        <input id="starforset" value="@Model.Value">
+        
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-primary" onclick="SetRatingSendparametrs()">Сохранить изменения</button>
+    </div>
+</div>

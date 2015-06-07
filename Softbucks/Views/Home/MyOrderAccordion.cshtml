@@ -1,0 +1,33 @@
+﻿<script type="text/javascript">
+    
+    $(document).ready(function() {
+
+        $('#loadOrder').load('@Url.Action("AddViewMerchandiseForOrder")');
+
+    });
+
+    function addMerchOrder(i) {
+        $('#loadOrder').load('@Url.Action("OrderMerchAdd")', { idOrder: i }, function() {
+            $('#orderMini').load('@Url.Action("OrderMini")');
+        });
+
+    }
+
+    function kickMerchOrder(i) {
+        $('#loadOrder').load('@Url.Action("OrderMerchKick")', { idOrder: i }, function() {
+            $('#orderMini').load('@Url.Action("OrderMini")');
+        });
+    }
+
+    function buyOrder() {
+        $('#myModalLoad').load('@Url.Action("BuyOrder")',{}, function() {
+            $('#loadOrder').load('@Url.Action("AddViewMerchandiseForOrder")');
+            $('#orderMini').load('@Url.Action("OrderMini")');
+        });
+    }
+</script>
+
+<div id="loadOrder">
+    
+
+</div>

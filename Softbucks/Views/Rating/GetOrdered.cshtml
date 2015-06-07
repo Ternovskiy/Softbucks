@@ -1,0 +1,123 @@
+﻿@model IEnumerable<DataModul.Orders>
+<script>
+    function SetRating(i) {
+        $('#myModalLoad').load('@Url.Action("SetRating")',{idMerch:i}, function() {
+            $('#loadOrderedUser').load('@Url.Action("GetOrdered")', { page: @ViewBag.pageNumber });
+        });
+    }
+
+    
+    $(function () {
+        $(".starscomments").rating({
+            'min': 0, 'max': 5, 'step': 1, 'size': 'xs',
+            readonly: true,
+            defaultCaption: "Нет рейтинга",
+            showClear: false,
+            clearCaption: "Нет рейтинга",
+            starCaptions: { 1: "Одна звезда", 2: "Две звезды", 3: "Три звезды", 4: "Четыре звезды", 5: "Пять звезд" }
+        }
+            );
+
+    });
+    
+</script>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m=>m.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m=>m.Merchandises.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m=>m.Count)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m=>m.Merchandises.Rating)
+        </th>
+        <th></th><th></th>
+    </tr>
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(m => item.Date)
+            </td>
+            <td>
+                <a onclick="ViewDetelsMerchModal(@item.MerchandaseId)" data-toggle="modal" data-target="#myModal">
+                    @Html.DisplayFor(m => item.Merchandises.Name)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(m=>item.Count)
+            </td>
+            <td>
+
+                <input class="starscomments" value="@item.Merchandises.Rating" />
+            </td>
+            <td>
+
+                <button class="btn btn-default" data-toggle="modal" data-target="#myModal" onclick="SetRating(@item.MerchandaseId)">Оценить</button>
+            </td>
+            <td>
+                <button class="btn btn-success" onclick="AddMerchandiseForOrder(@item.MerchandaseId)">Добавить к заказу</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@{
+    int pNumber = ViewBag.pageNumber - 1;
+    int nNumber = ViewBag.pageNumber + 1;
+}
+
+@if (ViewBag.pageCount > ViewBag.pageSize)
+{
+    <script>
+        function loadPageOrderedUser(i) {
+            $('#loadOrderedUser').load('@Url.Action("GetOrdered")', { page: i });
+        }
+    </script>
+    <div class="text-center">
+        <ul class="pagination">
+            @if (pNumber < 1)
+            {
+                <li class="disabled">
+                    <a>
+                        &laquo;
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a onclick="loadPageOrderedUser(@pNumber)">&laquo;</a>
+                </li>
+            }
+
+            @for (int i = 1; (i - 1) * ViewBag.pageSize < ViewBag.pageCount; i++)
+            {
+                <li @if (ViewBag.pageNumber == i) {  @: class="active"
+             }><a onclick="loadPageOrderedUser(@i)">@i</a></li>
+            }
+
+            @if ((nNumber - 1) * ViewBag.pageSize >= ViewBag.pageCount)
+            {
+                <li class="disabled">
+                    <a>
+                        &raquo;
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a onclick="loadPageOrderedUser(@nNumber)">&raquo;</a>
+                </li>
+            }
+        </ul>
+    </div>
+}

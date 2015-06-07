@@ -1,0 +1,50 @@
+﻿@model List<DataModul.Merchandises>
+<script>
+    function ViewDetelsMerchModal(i) {
+        $('#myModalLoad').load('@Url.Action("DetalsMerchandiseModal","Price")', { idMerch: i });
+    }
+</script>
+
+<h1 class="text-center"><small>Лучший выбор</small></h1>
+
+
+<div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
+   
+    <div class="carousel-inner">
+        
+        
+        <div class="active item">
+            <img height="180" src="@Url.Content("~/Content/img/1.jpg")"/>
+            <div class="carousel-caption" onclick="ViewDetelsMerchModal(@Model[0].Id)" data-toggle="modal" data-target="#myModal">
+                <h3>@Model[0].Name</h3>
+                <p>Число заказов @Model[0].CountOrderes</p>
+            </div>
+        </div>
+       
+        
+        <div class="item">
+            <img height="180" src="@Url.Content("~/Content/img/2.jpg")" />
+            <div class="carousel-caption" onclick="ViewDetelsMerchModal(@Model[1].Id)" data-toggle="modal" data-target="#myModal">
+                <h3>@Model[1].Name</h3>
+                <p>Число заказов @Model[1].CountOrderes</p>
+            </div>
+        </div>
+        
+        
+        <div class="item">
+            <img height="180" src="@Url.Content("~/Content/img/5.jpg")" />
+            <div class="carousel-caption" onclick="ViewDetelsMerchModal(@Model[2].Id)" data-toggle="modal" data-target="#myModal">
+                <h3>@Model[2].Name</h3>
+                <p>Число заказов @Model[2].CountOrderes</p>
+            </div>
+        </div>
+    </div>
+    <!-- Carousel nav -->
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
