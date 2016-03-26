@@ -38,7 +38,10 @@ namespace Softbucks.Controllers
         public ActionResult HeadMain()
         {
             var m = Repository.Db.Merchandises;
-
+            if (m.Count()<3)
+            {
+                return null;
+            }
             return PartialView(m.OrderByDescending(p => p.Orders.Sum(o=>o.Count)).ToList());
         }
 

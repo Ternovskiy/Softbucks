@@ -26,9 +26,8 @@ namespace DataModul.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDb)\\v11.0;AttachDbFilename=D:\\Softbucks\\Softbucks\\App_Data\\aspn" +
-            "et-Softbucks-20140302121355.mdf;Initial Catalog=aspnet-Softbucks-20140302121355;" +
-            "Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ilya.database.windows.net;Initial Catalog=test;Persist Security Info=" +
+            "True;User ID=ilya;Password=Twmo3urx")]
         public string aspnet_Softbucks_20140302121355ConnectionString {
             get {
                 return ((string)(this["aspnet_Softbucks_20140302121355ConnectionString"]));
@@ -38,9 +37,8 @@ namespace DataModul.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDb)\\v11.0;AttachDbFilename=D:\\Cloud@Mail.Ru\\Softbucks\\Softbucks" +
-            "\\App_Data\\aspnet-Softbucks-20140302121355.mdf;Initial Catalog=aspnet-Softbucks-2" +
-            "0140302121355;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ilya.database.windows.net;Initial Catalog=test;Persist Security Info=" +
+            "True;User ID=ilya;Password=Twmo3urx")]
         public string aspnet_Softbucks_20140302121355ConnectionString1 {
             get {
                 return ((string)(this["aspnet_Softbucks_20140302121355ConnectionString1"]));
