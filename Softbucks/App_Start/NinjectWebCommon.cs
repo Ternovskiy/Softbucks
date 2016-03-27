@@ -67,9 +67,10 @@ namespace Softbucks.App_Start
             //    new DataClassesSoftbucksDataContext(
             //        @"Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-Softbucks-20140302121355.mdf;Initial Catalog=aspnet-Softbucks-20140302121355;Integrated Security=True")));
 
+            //Data Source=ilya.database.windows.net;Initial Catalog=test;Integrated Security=False;User ID=ilya;Password=********;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False
             kernel.Bind<IRepository>().ToMethod(p => new Repository(
                 new DataClassesSoftbucksDataContext(
-                    @"Data Source=ilya.database.windows.net;Initial Catalog=test;Persist Security Info=True;User ID=ilya;Password=Twmo3urx")));
+                    @"Data Source=ilya.database.windows.net;Initial Catalog=test2;Persist Security Info=True;User ID=ilya;Password=Twmo3urx")));
         }        
     }
 }
